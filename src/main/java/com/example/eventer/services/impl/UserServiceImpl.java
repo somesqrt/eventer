@@ -1,5 +1,6 @@
 package com.example.eventer.services.impl;
 
+import com.example.eventer.entity.User;
 import com.example.eventer.repos.UserRepository;
 import com.example.eventer.services.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,11 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User doesn't exist"));
     }
 }

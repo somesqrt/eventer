@@ -1,6 +1,7 @@
 package com.example.eventer.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -24,6 +25,7 @@ public class User implements UserDetails {
     private String lastName;
     @Indexed(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
     private Role role;
     private String phone;
@@ -35,7 +37,6 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        // email in our case
         return email;
     }
 

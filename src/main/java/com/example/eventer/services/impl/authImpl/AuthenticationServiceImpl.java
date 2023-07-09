@@ -36,7 +36,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ROLE_ADMIN)
+                .role(Role.ROLE_OWNER)
                 .phone(request.getPhone())
                 .active(false)
                 .build();
