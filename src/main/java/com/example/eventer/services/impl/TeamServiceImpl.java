@@ -1,15 +1,14 @@
 package com.example.eventer.services.impl;
 
-import com.example.eventer.dao.request.BusinessCreateRequest;
 import com.example.eventer.dao.request.TeamCreateRequest;
-import com.example.eventer.entity.Business;
 import com.example.eventer.entity.Team;
-import com.example.eventer.repos.BusinessRepository;
 import com.example.eventer.repos.TeamRepository;
 import com.example.eventer.services.services.IdGeneratorService;
 import com.example.eventer.services.services.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +32,15 @@ public class TeamServiceImpl implements TeamService {
 
         teamRepository.save(team);
         return team;
+    }
+
+    @Override
+    public Optional<Team> getTeam(String teamId) {
+        var existingTeam = teamRepository.findByTeamID(Long.parseLong(teamId));
+        if (existingTeam.isEmpty()) {
+            throw new IllegalArgumentException("Team with ID dosent exists.");
+        }
+
+        return existingTeam;
     }
 }

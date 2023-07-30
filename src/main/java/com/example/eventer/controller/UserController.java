@@ -22,9 +22,14 @@ public class UserController {
 
     @GetMapping("/getByEmail")
     @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'EMPLOY')")
-    public ResponseEntity<User> getAllEvents(@RequestParam("email") String email) {
-        System.out.println(email);
+    public ResponseEntity<User> getUserByEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+
+    @GetMapping("/getAllTeamMembers")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OWNER', 'EMPLOY')")
+    public ResponseEntity<List<User>> getMembers(@RequestParam("teamID") String teamID) {
+        return ResponseEntity.ok(userService.getTeamMembers(teamID));
     }
 
 }

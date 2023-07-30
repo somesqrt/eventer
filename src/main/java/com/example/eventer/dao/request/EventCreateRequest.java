@@ -16,6 +16,6 @@ public class EventCreateRequest {
     private Date startTime;
     private Date endTime;
     private String typeOfActivity;
-    private String assignedWorker;
+    private String workerId;
     private String clientId;
 }

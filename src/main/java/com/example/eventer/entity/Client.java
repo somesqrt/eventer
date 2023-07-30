@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Client {
     @Id
     private Long clientId;
+    private Long businessId;
     private String firstName;
     private String lastName;
     private String phone;
@@ -30,6 +29,14 @@ public class Client {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public Long getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Long businessId) {
+        this.businessId = businessId;
     }
 
     public String getFirstName() {

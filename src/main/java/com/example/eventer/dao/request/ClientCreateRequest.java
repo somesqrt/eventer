@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientCreateRequest {
+    private Long businessId;
     private String firstName;
     private String lastName;
     private String phone;

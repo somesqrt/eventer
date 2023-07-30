@@ -8,6 +8,7 @@ import com.example.eventer.repos.EventRepository;
 import com.example.eventer.services.services.EventService;
 import com.example.eventer.services.services.IdGeneratorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -19,6 +20,7 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final BusinessRepository businessRepository;
     private final IdGeneratorService idGeneratorService;
+    private final SimpMessagingTemplate messagingTemplate;
     @Override
     public Event addEvent(EventCreateRequest request) {
         var existingEvent = eventRepository.findByEventID(idGeneratorService.giveNextId("event"));
@@ -34,11 +36,13 @@ public class EventServiceImpl implements EventService {
                     .startTime(request.getStartTime())
                     .endTime(request.getEndTime())
                     .typeOfActivity(request.getTypeOfActivity())
-                    .assignedWorker(request.getAssignedWorker())
+                    .workerId(request.getWorkerId())
                     .clientId(request.getClientId())
                     .build();
 
+            System.out.println(request.toString());
             eventRepository.save(event);
+            messagingTemplate.convertAndSend("/topic/events", "New event added: " + event.getEventID());
             return event;
         }else{
             throw new IllegalArgumentException("Business with this ID doesnt exists.");
